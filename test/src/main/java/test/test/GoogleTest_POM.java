@@ -94,7 +94,14 @@ public class GoogleTest_POM {
 			System.out.println(e.getMessage().toString());
 			fail(e.getMessage().toString());
 		}
-		
+	}
+	
+	@Test
+	public void testLogout()
+	{
+		/*
+		 * ICH VERSTEHE :) 
+		 * */
 	}
 	
 	@After
