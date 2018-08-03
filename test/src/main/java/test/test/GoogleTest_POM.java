@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import test.PageFactory.GoogleHomePage;
 import test.PageFactory.GoogleLogin;
+import test.PageFactory.GoogleLogout;
 
 public class GoogleTest_POM {
 	
@@ -68,9 +69,11 @@ public class GoogleTest_POM {
 */
 	
 	@Test
-	public void testAll() {
-		System.out.println("testing home...");
+	public void testLoginHappyPath() {
+		System.out.println("Testing Happypath...");
 		try {
+		System.out.println("testing home...");
+			
 			home = new GoogleHomePage(this.wd);			
 			assertEquals("Google", wd.getTitle());
 			home.signin.click();
@@ -87,6 +90,16 @@ public class GoogleTest_POM {
 			wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			Thread.sleep(2000);			
 			assertTrue(login.proof.getAttribute("title").contains("carlos"));
+			
+		System.out.println("testing logout...");
+
+			GoogleLogout logout = new GoogleLogout(this.wd);
+			logout.logout();
+			wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Thread.sleep(2000);
+			System.out.println(logout.proof.getText().toLowerCase());
+			
+			assertTrue(logout.proof.getText().toLowerCase().contains("ses"));			
 		}
 		
 		catch(Exception e) 
@@ -94,14 +107,50 @@ public class GoogleTest_POM {
 			System.out.println(e.getMessage().toString());
 			fail(e.getMessage().toString());
 		}
+		System.out.println("Happypath Done...");
 	}
 	
 	@Test
-	public void testLogout()
+	public void testLoginCorrectUserIncorrectPassword()
 	{
-		/*
-		 * ICH VERSTEHE :) 
-		 * */
+		System.out.println("Testing Incorrect pass...");
+		try {
+			System.out.println("testing home...");
+				
+				home = new GoogleHomePage(this.wd);			
+				assertEquals("Google", wd.getTitle());
+				home.signin.click();
+				wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				Thread.sleep(2000);
+			
+			System.out.println("testing login...");
+			
+				login = new GoogleLogin(this.wd);
+				login.writeUsername();
+				wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				Thread.sleep(2000);
+				
+				//incorrect password
+				login.strPassword = "estanoes";				
+				
+				login.writePassword();
+				
+				wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				Thread.sleep(2000);			
+				
+				System.out.println(login.proofIncorrectPassword.getText());
+				
+				assertTrue(login.proofIncorrectPassword.getText().toUpperCase().contains("WRONG"));
+							
+			}
+			
+			catch(Exception e) 
+			{
+				System.out.println(e.getMessage().toString());
+				fail(e.getMessage().toString());
+			}
+		
+		System.out.println("Incorrect pass done...");
 	}
 	
 	@After

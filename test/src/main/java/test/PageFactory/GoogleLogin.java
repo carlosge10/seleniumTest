@@ -18,7 +18,7 @@ public class GoogleLogin {
 	
 	@FindBy(xpath="/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[2]/div[1]/div/content/span") public WebElement nextBtn;
 	@FindBy(xpath="//*[@id=\"identifierId\"]") public WebElement username;
-	String strUsername = "carlosge13@gmail.com";
+	public String strUsername = "carlosge13@gmail.com";
 	public void writeUsername() throws Exception 
 	{
 		username.sendKeys(strUsername);
@@ -27,7 +27,7 @@ public class GoogleLogin {
 	
 	@FindBy(xpath="/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[2]/div[1]/div/content/span") public WebElement nextBtn2;
 	@FindBy(xpath="/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[1]/div/form/content/div[1]/div/div[1]/div/div[1]/input") public WebElement password;
-	String strPassword = "154ns154CAGE";
+	public String strPassword = "154ns154CAGE";
 	public void writePassword() throws Exception
 	{
 		password.sendKeys(strPassword);
@@ -35,5 +35,7 @@ public class GoogleLogin {
 	}
 	
 	@FindBy(xpath="/html/body/div/div[3]/div[1]/div/div/div/div[2]/div[4]/div[1]/a") public WebElement proof;
+	
+	@FindBy(xpath="//*[@id=\"password\"]/div[2]/div[2]") public WebElement proofIncorrectPassword;
 	
 }
